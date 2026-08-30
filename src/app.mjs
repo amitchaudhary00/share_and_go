@@ -45,6 +45,7 @@ class App {
             imgSrc: ["'self'", "data:", "https:"],
 
             fontSrc: ["'self'", "https://cdn.jsdelivr.net"],
+            
           },
         },
       }),
