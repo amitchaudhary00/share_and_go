@@ -32,22 +32,22 @@ class App {
         crossOriginOpenerPolicy: {
           policy: "same-origin-allow-popups",
         },
-        contentSecurityPolicy: {
-          directives: {
-            defaultSrc: ["'self'"],
+        // contentSecurityPolicy: {
+        //   directives: {
+        //     defaultSrc: ["'self'"],
 
-            scriptSrc: ["'self'", "https://esm.sh", "https://cdn.jsdelivr.net"],
+        //     scriptSrc: ["'self'", "https://esm.sh", "https://cdn.jsdelivr.net"],
 
-            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+        //     styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
 
-            connectSrc: ["'self'", "https://esm.sh", "https://cdn.jsdelivr.net"],
+        //     connectSrc: ["'self'", "https://esm.sh", "https://cdn.jsdelivr.net"],
 
-            imgSrc: ["'self'", "data:", "https:"],
+        //     imgSrc: ["'self'", "data:", "https:"],
 
-            fontSrc: ["'self'", "https://cdn.jsdelivr.net"],
-            
-          },
-        },
+        //     fontSrc: ["'self'", "https://cdn.jsdelivr.net"],
+
+        //   },
+        // },
       }),
     );
     this.app.use(cookieParser());
