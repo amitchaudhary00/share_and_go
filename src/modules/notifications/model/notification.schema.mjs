@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const notificationSchema = new Schema(
   {
     type: {
-      type: String,
+      type: String, 
       enum: NOTIFICATION_TYPES_ARR,
       required: true,
     },

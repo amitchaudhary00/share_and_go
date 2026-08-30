@@ -13,7 +13,8 @@ export class UserController {
   });
 
   verifyEmail = asyncHandler(async (req, res) => {
-    const result = await this.userService.verifyEmail(req.body)
-    return new ApiResponse(200, "Otp Verified", result).send(res)
-  })
+    req.body.userId = req.user._id;
+    const result = await this.userService.verifyEmail(req.body);
+    return new ApiResponse(200, "Otp Verified", result).send(res);
+  });
 }

@@ -1,0 +1,35 @@
+<!-- views/notes/view.ejs -->
+<%- include('../partials/header') %>
+
+<div class="container mt-4" style="max-width: 720px;">
+  <div class="d-flex justify-content-between align-items-start">
+    <h2><%= note.title || 'Untitled Note' %></h2>
+    <% if (isOwner) { %>
+      <form action="/notes/<%= note._id %>/delete" method="POST" onsubmit="return confirm('Delete this note?')">
+        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+      </form>
+    <% } %>
+  </div>
+
+  <p class="text-muted small">
+    Created <%= new Date(note.createdAt).toLocaleString() %>
+    <% if (note.expiresAt) { %>
+      · Expires <%= new Date(note.expiresAt).toLocaleString() %>
+    <% } %>
+  </p>
+
+  <div class="note-content border rounded p-3 bg-white">
+    <%- note.content %>
+  </div>
+
+  <% if (isOwner) { %>
+    <button class="btn btn-outline-primary mt-3"
+      onclick="navigator.clipboard.writeText(window.location.origin + '/share/<%= note.shareToken %>'); this.innerText='Copied!'">
+      Copy Share Link
+    </button>
+  <% } %>
+
+  <a href="/notes" class="btn mt-3">← Back to notes</a>
+</div>
+
+<%- include('../partials/footer') %>

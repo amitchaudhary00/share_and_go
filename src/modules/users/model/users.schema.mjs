@@ -59,7 +59,7 @@ userSchema.methods.verifyPassword = async function (candidatePassword) {
 };
 
 // HOOK — hash password before save (equivalent to beforeSave)
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function () {
   if (this.isModified("passwordHash") && this.passwordHash) {
     try {
       const trimmed = this.passwordHash.trim();
@@ -67,10 +67,9 @@ userSchema.pre("save", async function (next) {
         this.passwordHash = await bcrypt.hash(trimmed, Env.HASH_SALT);
       }
     } catch (error) {
-      return next(new Error(`Password hashing failed: ${error.message}`));
+      throw new Error(`Password hashing failed: ${error.message}`);
     }
   }
-  next();
 });
 
 export const Users = mongoose.model("User", userSchema);

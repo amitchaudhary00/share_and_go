@@ -51,6 +51,20 @@ export class UserService {
       logger.error("User not found (doesn't exist in our system)");
       throw ApiError.badRequest("Email verification failed.");
     }
-    return await this.#otpService.verifyOtp(existingUser.id, OTP_TYPES.SIGNUP, otp);
+    if (existingUser.emailVerified) {
+      logger.error("User email already verified");
+      return { valid: true };
+    }
+    const result = await this.#otpService.verifyOtp(
+      existingUser.id,
+      OTP_TYPES.SIGNUP,
+      otp,
+    );
+
+    if (result.valid) {
+      existingUser.emailVerified = true;
+      existingUser.save();
+    }
+    return result;
   };
 }

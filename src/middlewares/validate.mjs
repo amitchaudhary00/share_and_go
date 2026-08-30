@@ -16,7 +16,7 @@ export class Validate {
     next();
   };
 
-  query = (schema) => (req, res, next) => {
+  static query = (schema) => (req, res, next) => {
     const result = schema.safeParse(req.query);
 
     if (!result.success) {
@@ -31,7 +31,7 @@ export class Validate {
     next();
   };
 
-  params = (schema) => (req, res, next) => {
+  static params = (schema) => (req, res, next) => {
     const result = schema.safeParse(req.params);
 
     if (!result.success) {
@@ -43,6 +43,17 @@ export class Validate {
     }
 
     req.params = result.data;
+    next();
+  };
+
+  // For server-rendered view routes — attaches errors, never responds itself
+  static bodyForView = (schema) => (req, res, next) => {
+    const result = schema.safeParse(req.body);
+    if (!result.success) {
+      req.validationErrors = result.error.flatten().fieldErrors;
+    } else {
+      req.body = result.data;
+    }
     next();
   };
 }

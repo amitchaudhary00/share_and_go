@@ -1,3 +1,4 @@
+import { NOTIFICATION_TYPES } from "../../config/enum.mjs";
 import logger from "../../config/logger.mjs";
 import models from "../../db/index.db.mjs";
 import { MailService } from "../../utils/mailer.service.mjs";
@@ -10,7 +11,7 @@ export class NotificationService {
 
   scheduleEmailNotificationQueue = async () => {
     const pending = await this.notification
-      .find({ status: "pending", type: "otp_email" })
+      .find({ status: "pending", type: NOTIFICATION_TYPES.OTP_EMAIL })
       .sort({ createdAt: 1 })
       .limit(50); // batch size per run
 
@@ -18,7 +19,7 @@ export class NotificationService {
       try {
         const data = JSON.parse(notification.payload);
 
-        if (notification.type === "otp_email") {
+        if (notification.type === NOTIFICATION_TYPES.OTP_EMAIL) {
           await this.mailService.sendMail({
             to: notification.recipient,
             subject: "Your verification code",

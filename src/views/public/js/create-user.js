@@ -55,7 +55,7 @@ form.addEventListener("submit", async (e) => {
   submitBtn.textContent = "Creating...";
 
   try {
-    const res = await fetch("/api/users", {
+    const res = await fetch("/api/v1/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

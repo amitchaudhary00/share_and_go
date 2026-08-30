@@ -87,6 +87,7 @@ export class OtpService {
   };
 
   verifyOtp = async (userId, otpType, receivedOtp) => {
+    
     const record = await this.#otp
       .findOne({ userId, otpType, consumed: false })
       .sort({ createdAt: -1 });

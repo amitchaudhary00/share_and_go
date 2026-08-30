@@ -26,6 +26,9 @@ export class ApiError extends Error {
   static notFound(message = "Route Not Found", statusCode = 404) {
     return new ApiError(statusCode, message);
   }
+  static unAuthorized(message = "Unauthorized", statusCode = 401) {
+    return new ApiError(statusCode, message);
+  }
   static rateLimit(message = "Hit Rate Limit", statusCode = 429) {
     return new ApiError(statusCode, message);
   }

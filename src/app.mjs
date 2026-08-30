@@ -32,6 +32,21 @@ class App {
         crossOriginOpenerPolicy: {
           policy: "same-origin-allow-popups",
         },
+        contentSecurityPolicy: {
+          directives: {
+            defaultSrc: ["'self'"],
+
+            scriptSrc: ["'self'", "https://esm.sh", "https://cdn.jsdelivr.net"],
+
+            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+
+            connectSrc: ["'self'", "https://esm.sh", "https://cdn.jsdelivr.net"],
+
+            imgSrc: ["'self'", "data:", "https:"],
+
+            fontSrc: ["'self'", "https://cdn.jsdelivr.net"],
+          },
+        },
       }),
     );
     this.app.use(cookieParser());
@@ -54,7 +69,11 @@ class App {
     const ApiRouter = new InitializedRoutes().router;
     this.app.use(ApiRouter);
     this.app.use((req, res, next) => {
-      next(ApiError.notFound());
+      if (req.originalUrl.startsWith("/api")) {
+        next(ApiError.notFound());
+      } else {
+        res.status(404).render("pages/404");
+      }
     });
     this.app.use(ErrorResponse.ErrorHandler);
   };

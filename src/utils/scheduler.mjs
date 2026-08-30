@@ -5,6 +5,7 @@ export function startScheduler() {
   const notifications = new NotificationService();
   // cleanup expired OTPs — every 5 minutes
   cron.schedule(
+    // "*/5 * * * * *",
     "*/5 * * * *",
     async () => {
       try {

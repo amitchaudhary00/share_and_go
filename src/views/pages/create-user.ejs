@@ -7,38 +7,67 @@
                 <h1 class="h4 mb-1">Create your account</h1>
                 <p class="text-muted small mb-4">Sign up for Share&amp;Go</p>
 
-                <form id="createUserForm" novalidate>
+                <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+                    <div class="alert alert-danger"><%= errorMessage %></div>
+                <% } %>
+
+                <form action="/user/signup" method="POST" novalidate>
                     <div class="mb-3">
                         <label for="name" class="form-label">Full name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" autocomplete="name">
-                        <div class="invalid-feedback">Please enter your name.</div>
+                        <input
+                            type="text"
+                            class="form-control <%= errors && errors.name ? 'is-invalid' : '' %>"
+                            id="name" name="name"
+                            value="<%= formData ? formData.name || '' : '' %>"
+                            placeholder="John Doe" autocomplete="name">
+                        <% if (errors && errors.name) { %>
+                            <div class="invalid-feedback"><%= errors.name[0] %></div>
+                        <% } %>
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" autocomplete="email">
-                        <div class="invalid-feedback">Please enter a valid email address.</div> 
+                        <input
+                            type="email"
+                            class="form-control <%= errors && errors.email ? 'is-invalid' : '' %>"
+                            id="email" name="email"
+                            value="<%= formData ? formData.email || '' : '' %>"
+                            placeholder="you@example.com" autocomplete="email">
+                        <% if (errors && errors.email) { %>
+                            <div class="invalid-feedback"><%= errors.email[0] %></div>
+                        <% } %>
                     </div>
 
                     <div class="mb-3">
                         <label for="mobile" class="form-label">Mobile number</label>
-                        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="+1234567890" autocomplete="tel">
-                        <div class="invalid-feedback">Please enter a valid mobile number.</div>
+                        <input
+                            type="tel"
+                            class="form-control <%= errors && errors.mobile ? 'is-invalid' : '' %>"
+                            id="mobile" name="mobile"
+                            value="<%= formData ? formData.mobile || '' : '' %>"
+                            placeholder="+1234567890" autocomplete="tel">
+                        <% if (errors && errors.mobile) { %>
+                            <div class="invalid-feedback"><%= errors.mobile[0] %></div>
+                        <% } %>
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="At least 8 characters" autocomplete="new-password">
-                        <div class="invalid-feedback">Password must be at least 8 characters.</div>
+                        <input
+                            type="password"
+                            class="form-control <%= errors && errors.password ? 'is-invalid' : '' %>"
+                            id="password" name="password"
+                            placeholder="At least 8 characters" autocomplete="new-password">
+                        <% if (errors && errors.password) { %>
+                            <div class="invalid-feedback"><%= errors.password[0] %></div>
+                        <% } %>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100" id="submitBtn">Create account</button>
+                    <button type="submit" class="btn btn-primary w-100">Create account</button>
                 </form>
-
-                <div id="serverMessage" class="mt-3"></div>
             </div>
         </div>
     </div>
 </div>
 
-<%- include('../partials/footer', { pageScript: '/js/create-user.js' }) %>
+<%- include('../partials/footer') %>

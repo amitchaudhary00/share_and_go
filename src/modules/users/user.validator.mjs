@@ -15,5 +15,5 @@ export const loginSchema = z.object({
 });
 
 export const verifyEmailSchema = z.object({
-  email: z.email().toLowerCase(), userId: z.string().trim(), otp: z.string().trim()
+  email: z.email().toLowerCase(), otp: z.string().trim()
 })
