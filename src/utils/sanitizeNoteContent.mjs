@@ -1,26 +1,25 @@
-
+// utils/sanitizeNoteContent.mjs
 import sanitizeHtml from "sanitize-html";
 
 export function sanitizeNoteContent(html) {
   return sanitizeHtml(html, {
     allowedTags: [
       "p",
+      "br",
       "strong",
       "em",
       "u",
       "s",
-      "ul",
-      "ol",
-      "li",
       "h1",
       "h2",
       "h3",
+      "ul",
+      "ol",
+      "li",
       "blockquote",
-      "br",
-      "a",
-      "code",
       "pre",
-      "hr",
+      "code",
+      "a",
     ],
     allowedAttributes: {
       a: ["href", "target", "rel"],
